@@ -12,12 +12,13 @@ function Header(props) {
 			<Welcome name={'Angela'} newUser={true} />
 			<div>
 				<ul>
-					<li>Now Playing</li>
-					<li>Must See Movies</li>
+					<li onClick={props.showAllMovies}>Now Playing</li>
+					<li onClick={props.filterMovies}>Must See Movies</li>
 				</ul>
 			</div>
 		</header>
 	);
 }
+
 // ALWAYS EXPORT FOR USE IN ANOTHER COMPONENT
 export default Header;

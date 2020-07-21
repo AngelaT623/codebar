@@ -1,25 +1,44 @@
 import React from 'react';
-import logo from './logo.svg'
 import './App.css';
 
 import Header from './components/Header';
-import Movie from './components/Movie';
+import Movies from './components/Movies';
 
-const movie = {
-	title: 'Star Wars: The Rise of Skywalker',
-	poster: 'https://image.tmdb.org/t/p/w500/db32LaOibwEliAmSL2jjDF6oDdj.jpg',
-	rotten_tomatoes: 53,
-	audience_score: 86,
-	summary:
-		'The surviving Resistance faces the First Order once again as the journey of Rey, Finn and Poe Dameron continues. With the power and knowledge of generations behind them, the final battle begins.',
-};
+import { movies } from './data';
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+		movies: movies,
+		title: 'Now Playing',
+		};
+	}
+	filterMovies = () => {
+		const filteredMovies = this.state.movies.filter(
+			(movie) => movie.audience_score >= 60
+		);
+		this.setState({
+			movies: filteredMovies, 
+			title: 'Must See Movies', 
+		});
+	
+	};
 
-function App() {
-  return (
-  <main>
-		<Header /> <Movie title={movie.title} poster={movie.poster} />;
-  </main> 
-  ); 
+	showAllMovies = () => {
+		this.setState({
+			movies: movies, 
+			title: 'Now Playing',
+		});
+	};
+
+	render() {
+		return (
+			<div>
+				<Header filterMovies={this.filterMovies} showAllMovies={this.showAllMovies} />
+				<Movies movies={this.state.movies} title={this.state.title} />
+			</div>
+		);
+	}
 }
 
 export default App;
